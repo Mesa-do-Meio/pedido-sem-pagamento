@@ -24,7 +24,7 @@ export class AppService implements OnApplicationBootstrap {
         console.log('Consumindo tópico', topic)
         await this.consumerService.consume(topic, topic, this.handleMessage)
       }
-    }, 200)
+    }, 0)
   }
 
   async handleMessage(props: any) {
