@@ -4,7 +4,7 @@ import { IHeaders, Kafka, Message, Producer } from 'kafkajs';
 @Injectable()
 export class ProducerService implements OnModuleInit, OnApplicationShutdown {
   private readonly kafka = new Kafka({
-    brokers: ['localhost:9091', 'localhost:9092', 'localhost:9093'],
+    brokers: process.env.KAFKA_BROKERS.split(','),
   });
 
   private readonly producer: Producer = this.kafka.producer();
