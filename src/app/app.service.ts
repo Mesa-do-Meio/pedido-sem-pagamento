@@ -3,13 +3,20 @@ import { KafkaMessage } from 'kafkajs';
 import { DatabaseService } from 'src/database/database.service';
 import { ConsumerService } from 'src/kafka/consumer.service';
 import { ProducerService } from 'src/kafka/producer.service';
+import { AppRepository } from './app.repository';
 
 @Injectable()
 export class AppService implements OnApplicationBootstrap {
   constructor(
     private readonly producerService: ProducerService,
     private readonly consumerService: ConsumerService,
-    private readonly database: DatabaseService) { }
+    private readonly database: DatabaseService,
+    private readonly appRepository: AppRepository
+  ) { }
+
+  async getHealth() {
+    return this.appRepository.getHealth();
+  }
 
   async onApplicationBootstrap() {
     setTimeout(async () => {
