@@ -7,16 +7,25 @@ import { ProducerService } from '../kafka/producer.service';
 import { AppController } from './app.controller';
 import { AppRepository } from './app.repository';
 import { AppService } from './app.service';
+import { DatabasePrismaModule } from 'src/modules/database/database.module';
+import { KartModule } from 'src/modules/kart/kart.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    KafkaModule,
+    // KafkaModule,
     DatabaseModule,
+    DatabasePrismaModule,
+    KartModule,
   ],
-  providers: [ProducerService, AppRepository, ConsumerService, AppService],
+  providers: [
+    // ProducerService,
+    AppRepository,
+    // ConsumerService,
+    AppService,
+  ],
   controllers: [AppController],
 })
-export class AppModule { }
+export class AppModule {}

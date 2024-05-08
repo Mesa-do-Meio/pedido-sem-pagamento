@@ -8,8 +8,8 @@ import { AppRepository } from './app.repository';
 @Injectable()
 export class AppService implements OnApplicationBootstrap {
   constructor(
-    private readonly producerService: ProducerService,
-    private readonly consumerService: ConsumerService,
+    // private readonly producerService: ProducerService,
+    // private readonly consumerService: ConsumerService,
     private readonly database: DatabaseService,
     private readonly appRepository: AppRepository
   ) { }
@@ -20,10 +20,10 @@ export class AppService implements OnApplicationBootstrap {
 
   async onApplicationBootstrap() {
     setTimeout(async () => {
-      for (const topic of process.env.TOPICS.split(',')) {
-        console.log('Consumindo tópico', topic)
-        await this.consumerService.consume(topic, topic, this.handleMessage)
-      }
+      // for (const topic of process.env.TOPICS.split(',')) {
+        // console.log('Consumindo tópico', topic)
+        // await this.consumerService.consume(topic, topic, this.handleMessage)
+      // }
     }, 0)
   }
 

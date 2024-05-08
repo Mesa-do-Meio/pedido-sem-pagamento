@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./src/prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model carrinhos {
+  id_car       Int
+  prod_car     Int
+  qtd_prod_car Int?
+  desconto_car Decimal? @db.Decimal
+
+  @@id([id_car, prod_car])
+}
+
+model clientes {
+  cpf_cli           BigInt    @id
+  nome_cli          String?   @db.VarChar(100)
+  email_cli         String?   @db.VarChar(50)
+  celular_cli       String?   @db.VarChar(15)
+  end_res_cli       String?   @db.VarChar(250)
+  senha_cli         String?   @db.VarChar(15)
+  data_cadastro_cli DateTime? @db.Date
+  niver_cli         DateTime? @db.Date
+  trusted_cli       Boolean?
+}
+
+model pedidos {
+  id_ped          Int
+  data_ped        DateTime? @db.Date
+  cpf_cli         BigInt
+  id_car_ped      Int
+  valor_ped       Decimal?  @db.Decimal
+  transp_ped      String?   @db.VarChar(100)
+  rastreio_ped    String?   @db.VarChar(100)
+  end_entrega_ped String?   @db.VarChar(250)
+  ped_sem_pgto    Boolean?
+
+  @@id([id_ped, id_car_ped, cpf_cli])
+}
+
+model produtos {
+  id_prod          String   @id @db.VarChar(15)
+  nome_prod        String?  @db.VarChar(100)
+  tipo_prod        String?  @db.VarChar(50)
+  descr_prod       String?  @db.VarChar(255)
+  valor_venda_prod Decimal? @db.Decimal(10, 2)
+  estoque_prod     Int?
+  custo_prod       Decimal? @db.Decimal(10, 2)
+}
