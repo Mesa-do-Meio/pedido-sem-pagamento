@@ -1,5 +1,6 @@
 import { carrinhos } from './../../../prisma/src/prisma/client/index.d';
-import { Inject, Injectable } from '@nestjs/common';
+import { Body, Inject, Injectable } from '@nestjs/common';
+import { KartDto } from './dto/kart.dto';
 import {
   PrismaService,
   PrismaServiceToken,
