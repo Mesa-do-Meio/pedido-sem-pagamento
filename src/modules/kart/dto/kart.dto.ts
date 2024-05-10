@@ -1,6 +1,8 @@
+import { productTypeEnum } from "../enum/product_type.enum";
+
 export interface KartDto {
-    id_car:      number;
-    prod_car: number;
-    qnt_prod_car: number;
-    desconto_car: number;
+  id_car: number;
+  id_prod: number;
+  typeProd: productTypeEnum;
+  qnt_prod_car: number;
 }

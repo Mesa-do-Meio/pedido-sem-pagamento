@@ -15,15 +15,15 @@ import { KartModule } from 'src/modules/kart/kart.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    // KafkaModule,
+    KafkaModule,
     DatabaseModule,
     DatabasePrismaModule,
     KartModule,
   ],
   providers: [
-    // ProducerService,
+    ProducerService,
     AppRepository,
-    // ConsumerService,
+    ConsumerService,
     AppService,
   ],
   controllers: [AppController],
