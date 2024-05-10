@@ -1,5 +1,5 @@
 import { Injectable, OnApplicationShutdown } from '@nestjs/common';
-import { Consumer, ConsumerRunConfig, ConsumerSubscribeTopics, Kafka } from 'kafkajs';
+import { Consumer, ConsumerRunConfig, ConsumerSubscribeTopics, Kafka, KafkaMessage } from 'kafkajs';
 
 @Injectable()
 export class ConsumerService implements OnApplicationShutdown {
@@ -9,7 +9,7 @@ export class ConsumerService implements OnApplicationShutdown {
 
   private readonly consumers: Consumer[] = []
 
-  async consume(topic: string, groupId: string, callback: (props: any) => Promise<void>) {
+  async consume(topic: string, groupId: string, callback: (message: KafkaMessage) => Promise<void>) {
     const consumer = this.kafka.consumer({ groupId: groupId, allowAutoTopicCreation: false });
 
     await consumer.connect();
@@ -20,7 +20,7 @@ export class ConsumerService implements OnApplicationShutdown {
       autoCommit: true,
       autoCommitInterval: 100,
       eachMessage: async ({ message }) => {
-        await callback({ message });
+        await callback(message);
       }
 
     });

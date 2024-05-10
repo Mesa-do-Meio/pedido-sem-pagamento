@@ -5,15 +5,18 @@ import {
   PrismaService,
   PrismaServiceToken,
 } from 'src/modules/database/prisma.service';
+import { ProducerService } from 'src/kafka/producer.service';
 
 @Injectable()
 export class KartService{
   constructor(
     @Inject(PrismaServiceToken)
     private readonly prismaService: PrismaService,
+    private readonly producerService: ProducerService
   ) {}
 
   async getAll() {
     return await this.prismaService.carrinhos.findMany();
   }
+
 }
