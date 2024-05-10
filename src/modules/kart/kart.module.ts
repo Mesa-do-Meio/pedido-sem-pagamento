@@ -10,8 +10,7 @@ import { KafkaModule } from 'src/kafka/kafka.module';
   providers: [KartService],
   imports: [
     DatabasePrismaModule,
-    KafkaModule,
-    // KafkaModule
+    KafkaModule
   ],
   exports: [KartService],
 })

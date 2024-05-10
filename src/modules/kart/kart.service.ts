@@ -5,6 +5,7 @@ import {
   PrismaServiceToken,
 } from 'src/modules/database/prisma.service';
 import { ConsumerService } from 'src/kafka/consumer.service';
+import { ProducerService } from 'src/kafka/producer.service';
 
 @Injectable()
 export class KartService {
@@ -12,6 +13,7 @@ export class KartService {
     @Inject(PrismaServiceToken)
     private readonly prismaService: PrismaService,
     private readonly consumerService: ConsumerService,
+    private readonly producerService: ProducerService
   ) {}
 
   async productSell(products: KartDto[]) {
@@ -26,4 +28,5 @@ export class KartService {
       },
     });
   }
+
 }
