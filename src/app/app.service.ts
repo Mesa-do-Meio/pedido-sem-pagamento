@@ -31,6 +31,5 @@ export class AppService implements OnApplicationBootstrap {
 
   async handleMessage(message: KafkaMessage) {
     console.log('Mensagem recebida!!!', message.value.toString())
-    await this.kartConsumer.productSell([])
   }
 }

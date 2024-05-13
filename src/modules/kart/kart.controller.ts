@@ -1,23 +1,17 @@
-import { Controller, Get, HttpStatus, Res } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Post, Res } from '@nestjs/common';
 import { KartService } from './kart.service';
 import { Response } from 'express';
 import { productTypeEnum } from './enum/product_type.enum';
+import { SellProductDto } from './dto/kart.dto';
 
 @Controller('kart')
 export class KartController {
   constructor(private readonly kartService: KartService) {}
 
-  @Get()
-  async getAll(@Res() res: Response) {
+  @Post()
+  async getAll(@Res() res: Response, @Body() body: SellProductDto) {
     try {
-      const rep = await this.kartService.productSell([
-        {
-          id_car: 1,
-          id_prod: 2,
-          typeProd: productTypeEnum.prod,
-          qnt_prod_car: 2,
-        },
-      ]);
+      const rep = await this.kartService.productSell(body);
 
       return res.status(HttpStatus.OK).send(rep);
     } catch (e) {

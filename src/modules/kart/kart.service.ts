@@ -1,5 +1,5 @@
 import { Body, Inject, Injectable } from '@nestjs/common';
-import { KartDto } from './dto/kart.dto';
+import { SellProductDto } from './dto/kart.dto';
 import {
   PrismaService,
   PrismaServiceToken,
@@ -13,20 +13,24 @@ export class KartService {
     @Inject(PrismaServiceToken)
     private readonly prismaService: PrismaService,
     private readonly consumerService: ConsumerService,
-    private readonly producerService: ProducerService
+    private readonly producerService: ProducerService,
   ) {}
 
-  async productSell(products: KartDto[]) {
-    return await this.prismaService.produtos.findMany({
-      where: {
-        id_prod:
-          products[0].typeProd +
-          products[0].id_prod.toLocaleString('en-US', {
-            minimumIntegerDigits: 3,
-            useGrouping: false,
-          }),
-      },
-    });
-  }
+  async productSell(products: any) {
+    try {
+      const productsToSell: SellProductDto = {
+        cpfCliente: products['cpfCliente'],
+        produtos: products['produtos'],
+        tipoPagamento: {
+          id: products['tipoPagamento']['id'],
+          name: products['tipoPagamento']['name'],
+          data: products['tipoPagamento']['data'],
+        },
+      };
 
+      await this.producerService.sendMessage('carrinho', productsToSell);
+    } catch (e) {
+      throw e;
+    }
+  }
 }
