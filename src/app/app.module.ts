@@ -1,14 +1,14 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { DatabasePrismaModule } from 'src/modules/database/database.module';
+import { KartModule } from 'src/modules/kart/kart.module';
+import { ProductModule } from 'src/modules/product/product.module';
+import { ProductService } from 'src/modules/product/product.service';
 import { DatabaseModule } from '../database/database.module';
 import { ConsumerService } from '../kafka/consumer.service';
 import { KafkaModule } from '../kafka/kafka.module';
 import { ProducerService } from '../kafka/producer.service';
-import { AppController } from './app.controller';
-import { AppRepository } from './app.repository';
 import { AppService } from './app.service';
-import { DatabasePrismaModule } from 'src/modules/database/database.module';
-import { KartModule } from 'src/modules/kart/kart.module';
 
 @Module({
   imports: [
@@ -19,13 +19,13 @@ import { KartModule } from 'src/modules/kart/kart.module';
     DatabaseModule,
     DatabasePrismaModule,
     KartModule,
+    ProductModule,
   ],
   providers: [
     ProducerService,
-    AppRepository,
     ConsumerService,
     AppService,
+    ProductService,
   ],
-  controllers: [AppController],
 })
-export class AppModule {}
+export class AppModule { }

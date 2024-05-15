@@ -7,7 +7,7 @@ export interface KartDto {
   qnt_prod_car: number;
 }
 
-interface Product {
+export class Product {
   id: string;
   description: string;
   nome: string;
@@ -15,6 +15,7 @@ interface Product {
   preco: number;
   desc: number;
 }
+
 export interface SellProductDto {
   cpfCliente: string;
   tipoPagamento: { id: number; data: any; name: string };

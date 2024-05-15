@@ -9,7 +9,7 @@ export class ConsumerService implements OnApplicationShutdown {
 
   private readonly consumers: Consumer[] = []
 
-  async consume(topic: string, groupId: string, callback: (message: KafkaMessage) => Promise<void>) {
+  async consume(topic: string, groupId: string, callback: (message: KafkaMessage, topic: string) => Promise<void>) {
     const consumer = this.kafka.consumer({ groupId: groupId, allowAutoTopicCreation: false });
 
     await consumer.connect();
@@ -19,8 +19,8 @@ export class ConsumerService implements OnApplicationShutdown {
     await consumer.run({
       autoCommit: true,
       autoCommitInterval: 100,
-      eachMessage: async ({ message }) => {
-        await callback(message);
+      eachMessage: async ({ message, topic }) => {
+        await callback(message, topic);
       }
 
     });

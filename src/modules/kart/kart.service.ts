@@ -1,11 +1,11 @@
 import { Body, Inject, Injectable } from '@nestjs/common';
-import { SellProductDto } from './dto/kart.dto';
+import { ConsumerService } from 'src/kafka/consumer.service';
+import { ProducerService } from 'src/kafka/producer.service';
 import {
   PrismaService,
   PrismaServiceToken,
 } from 'src/modules/database/prisma.service';
-import { ConsumerService } from 'src/kafka/consumer.service';
-import { ProducerService } from 'src/kafka/producer.service';
+import { SellProductDto } from './dto/kart.dto';
 
 @Injectable()
 export class KartService {
@@ -14,7 +14,7 @@ export class KartService {
     private readonly prismaService: PrismaService,
     private readonly consumerService: ConsumerService,
     private readonly producerService: ProducerService,
-  ) {}
+  ) { }
 
   async productSell(products: any) {
     try {
@@ -28,7 +28,7 @@ export class KartService {
         },
       };
 
-      await this.producerService.sendMessage('carrinho', productsToSell);
+      await this.producerService.sendMessage(process.env.KAFKA_PRODUCER_TOPIC_CARRINHO, productsToSell);
     } catch (e) {
       throw e;
     }
