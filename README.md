@@ -32,6 +32,17 @@
 $ bun install
 ```
 
+## Inicialização do Docker
+```bash
+$ docker compose up -d --build
+```
+Em alguns casos a versão do Docker pode estar desatualizada, caso seja o caso use:
+```bash
+$ docker-compose up -d
+``` 
+
+Após isso você terá em mãos o Kafka UI e os brokers de pé em sua máquina. 
+
 ## Running the app
 
 ```bash
